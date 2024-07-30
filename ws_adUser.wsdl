@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<definitions targetNamespace="urn:ws_adUser" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:ws_adUser" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <types>
+        <xsd:schema targetNamespace="urn:ws_adUser">
+        <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+            <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/"/>
+        </xsd:schema>
+    </types>
+
+
+    <message name="validate_aduserRequest">
+        <part name="ldap_user" type="xsd:string"/>
+        <part name="ldap_pass" type="xsd:string"/>
+    </message>
+
+
+    <message name="validate_aduserResponse">
+        <part name="return" type="xsd:string"/>
+    </message>
+
+
+    <portType name="ws_adUserPortType">
+        <operation name="validate_aduser">
+            <documentation>User Active Directory LDAP Bind</documentation>
+            <input message="tns:validate_aduserRequest"/>
+            <output message="tns:validate_aduserResponse"/>
+        </operation>
+    </portType>
+
+
+    <binding name="ws_adUserBinding" type="tns:ws_adUserPortType">
+
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc"/>
+
+
+    <operation name="validate_aduser">
+
+    <soap:operation style="rpc" soapAction="urn:ws_adUser#validate_aduser"/>
+
+    <input>
+        <soap:body namespace="urn:ws_adUser" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+    </input>
+    <output>
+
+    <soap:body namespace="urn:ws_adUser" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded"/>
+
+    </output>
+
+    </operation>
+
+    </binding>
+
+
+    <service name="ws_adUser">
+        <port name="ws_adUserPort" binding="tns:ws_adUserBinding">
+            <soap:address location="https://wsuser.bri.co.id:443/beranda/ldap/ws/ws_adUser.php"/>
+        </port>
+    </service>
+</definitions>

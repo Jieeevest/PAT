@@ -1,0 +1,20 @@
+version: "3"
+services:
+  brisma-api:
+    image: localhost/brisma-pat
+    build: .
+    container_name: brisma-pat
+    restart: unless-stopped
+    volumes:
+      - ./.env:/app/.env
+      - ./controllers:/app/controllers
+      - ./hooks/:/app/hooks
+      - ./models:/app/models
+      - ./routes:/app/routes
+      - ./schemas:/app/schemas
+      - ./utils:/app/utils
+      - ./services:/app/services
+      - ./server.js:/app/server.js
+    ports:
+      - "2002:2002"
+    command: npm start
